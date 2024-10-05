@@ -31,4 +31,8 @@ public class ItemService {
         Item item = itemMapper.itemDtoToItem(itemDto);
         itemRepository.save(item);
     }
+
+    public void deleteItemById(Long id) {
+        itemRepository.deleteById(id);
+    }
 }

@@ -3,6 +3,7 @@ package org.spring.project.controller;
 import lombok.RequiredArgsConstructor;
 import org.spring.project.dto.ItemDto;
 import org.spring.project.service.ItemService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,6 +29,13 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Void> createItem(@RequestBody ItemDto itemDto) {
+        itemService.createItem(itemDto);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Void> deleteItem(@RequestBody Long id) {
+        itemService.deleteItemById(id);
         return ResponseEntity.ok().build();
     }
 }

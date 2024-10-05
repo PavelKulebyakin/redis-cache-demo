@@ -1,7 +1,6 @@
 package org.spring.project.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 import org.spring.project.dto.ItemDto;
 import org.spring.project.model.Item;
 
