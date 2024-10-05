@@ -14,11 +14,12 @@ public class Item {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     private String name;
     private int quantity;
 
-    public Item(String name) {
-        this.name = name;                                   //TODO check constructor
+    public Item(String name, int quantity) {    // TODO check constructor
+        this.name = name;
+        this.quantity = quantity;
     }
 }
