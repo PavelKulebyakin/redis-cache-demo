@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  project:
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/project
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - backend
+
+  postgres:
+    image: postgres:14.3-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: project
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-volume:/var/lib/postgresql/data
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql   # TODO add schema init
+    networks:
+      - backend
+
+
+volumes:
+  postgres-volume: { }
+
+networks:
+  backend: { }
+
+
