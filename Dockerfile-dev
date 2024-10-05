@@ -1,0 +1,32 @@
+# Use the official Eclipse Temurin JDK as the base image
+FROM eclipse-temurin:21-jdk AS build
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the Gradle wrapper and the build files
+COPY gradlew .
+COPY gradle/ ./gradle/
+COPY build.gradle .
+COPY settings.gradle .
+
+# Copy all source files and dependencies
+COPY src/ ./src/
+
+# Run the Gradle build to download dependencies
+RUN ./gradlew build --no-daemon
+
+# Use a smaller base image for the final image
+FROM eclipse-temurin:21-jdk
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the built application from the previous stage
+COPY --from=build /app/build/libs/*.jar app.jar
+
+# Expose the application port (optional)
+EXPOSE 8080
+
+# Command to run the application
+CMD ["java", "-jar", "app.jar"]
