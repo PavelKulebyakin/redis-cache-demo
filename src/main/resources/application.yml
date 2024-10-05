@@ -5,6 +5,7 @@ spring:
     type: redis
     redis:
       time-to-live: 60000
+      cache-null-values: false
   data:
     redis:
       host: redis
