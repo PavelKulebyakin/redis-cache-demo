@@ -28,9 +28,21 @@ services:
     networks:
       - backend
 
+  redis:
+    image: redis:alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-volume:/data
+    networks:
+      - backend
+    restart: always
+
 
 volumes:
   postgres-volume: { }
+  redis-volume: { }
 
 networks:
   backend: { }
