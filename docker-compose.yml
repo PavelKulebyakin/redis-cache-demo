@@ -1,7 +1,9 @@
 version: "3.9"
 services:
   project:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/project
       SPRING_DATASOURCE_USERNAME: user
@@ -10,6 +12,7 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+      - redis
     networks:
       - backend
 
@@ -28,9 +31,21 @@ services:
     networks:
       - backend
 
+  redis:
+    image: redis:alpine
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-volume:/data
+    networks:
+      - backend
+    restart: always
+
 
 volumes:
   postgres-volume: { }
+  redis-volume: { }
 
 networks:
   backend: { }

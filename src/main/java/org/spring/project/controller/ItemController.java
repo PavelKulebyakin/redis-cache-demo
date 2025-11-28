@@ -14,8 +14,8 @@ import java.util.List;
 public class ItemController {
     private final ItemService itemService;
 
-    @GetMapping
-    public ResponseEntity<ItemDto> getItemById(@RequestParam Long id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<ItemDto> getItemById(@PathVariable Long id) {
         ItemDto item = itemService.getItemById(id);
         return ResponseEntity.ok(item);
     }
@@ -32,8 +32,8 @@ public class ItemController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteItem(@RequestBody Long id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemService.deleteItemById(id);
         return ResponseEntity.ok().build();
     }
